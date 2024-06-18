@@ -1,6 +1,8 @@
 package it.its.webapp.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -40,33 +42,31 @@ public class MyServlet extends HttpServlet {
 	}
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String nomeParams = request.getParameter("nome");
-        String cognomeParams = request.getParameter("cognome");
-        String emailParams = request.getParameter("email");
-        String etaParams = request.getParameter("eta");
-        String sessoParams = request.getParameter("sesso");
-        String dataDiNascitaParams = request.getParameter("dataNascita");
+		String nome = request.getParameter("nome");
+        String cognome = request.getParameter("cognome");
+        String email = request.getParameter("email");
+        String eta = request.getParameter("eta");
+        String sesso = request.getParameter("sesso");
+        String dataDiNascita = request.getParameter("dataNascita");
         
-		Integer eta = null;
-		if (etaParams != null && !etaParams.isEmpty()) {
-			eta = Integer.parseInt(etaParams);
-		}
 		
-        Utente utente = new Utente(nomeParams, cognomeParams, emailParams, eta, sessoParams, dataDiNascitaParams);
+        Utente utente = new Utente(nome, cognome, email, eta, sesso, dataDiNascita);
         
         System.out.println("----------------------");
-        
-        if(Validator.validateUser(utente)) {
-        	System.out.println("Utente valido!");
+        ArrayList<String> errors = Validator.validateUser(utente);
+        if(errors.size() > 0) {
+        	System.out.println("Utente non valido!");
+			for (String error : errors) {
+				System.out.println(error);
+			}
+		} else {
+			System.out.println("Utente valido!");
         	System.out.println("Nome: " + utente.getNome());
             System.out.println("Cognome: " + utente.getCognome());
             System.out.println("Email: " + utente.getEmail());
             System.out.println("Eta: " + utente.getEta());
             System.out.println("Sesso: " + utente.getSesso());
             System.out.println("Data di nascita: " + utente.getDataDiNascita());
-		} else {
-			System.out.println("Utente non valido");
-			System.out.println("Controlla i dati inseriti!");
 		}
         
 	}

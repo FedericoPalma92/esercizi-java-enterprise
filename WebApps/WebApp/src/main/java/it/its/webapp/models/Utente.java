@@ -24,11 +24,14 @@ public class Utente {
 	private String dataDiNascita;
 	
 	// Costruttore
-	public Utente(String nome, String cognome, String email, Integer eta, String sesso, String dataDiNascita) {
+	public Utente(String nome, String cognome, String email, String eta, String sesso, String dataDiNascita) {
 		this.nome = nome;
 		this.cognome = cognome;
 		this.email = email;
-		this.eta = eta;
+		this.eta = null;
+		if (eta != null && !eta.isEmpty()) {
+			this.eta = Integer.parseInt(eta);
+		}
 		this.sesso = sesso;
 		this.dataDiNascita = dataDiNascita;
 	}
