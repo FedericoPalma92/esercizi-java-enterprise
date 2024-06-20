@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.regex.Pattern;
 
-import it.its.webapp.models.Utente;
+import it.its.webapp.domain.Utente;
 
 public class Validator {
 	private static final Pattern EMAIL_REGEX = 
